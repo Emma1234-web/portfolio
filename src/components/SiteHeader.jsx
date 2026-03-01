@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaCalendarCheck, FaTimes } from "react-icons/fa";
 
 function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,47 +7,55 @@ function SiteHeader() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="mb-12 flex flex-col gap-5 md:mb-14 md:flex-row md:items-center md:justify-between">
-      <h1 className="text-center text-2xl font-black tracking-tight text-slate-900 md:text-left md:text-3xl">
-        EMMA <span className="rounded-full bg-slate-900 px-2 py-1 text-xs align-middle text-white">DEV</span>
-      </h1>
+    <header className="mb-12 rounded-3xl border border-slate-200 bg-white/85 p-4 shadow-lg shadow-slate-200/70 backdrop-blur md:mb-14">
+      <div className="flex items-center justify-between gap-3">
+        <h1 className="text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+          EMMA <span className="rounded-full bg-teal-700 px-2 py-1 text-xs align-middle text-white">DEV</span>
+        </h1>
 
-      <div className="md:hidden">
         <button
           type="button"
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-nav"
-          className="mx-auto flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide text-slate-600"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-teal-700 transition hover:bg-teal-50 md:hidden"
         >
-          <FaBars /> Menu
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
-        {isMenuOpen ? (
-          <nav id="mobile-nav" className="mt-2 flex items-center justify-center gap-5 text-sm font-semibold text-slate-700">
-            <a href="#about" className="transition hover:text-blue-700" onClick={closeMenu}>
-              About
-            </a>
-            <a href="#projects" className="transition hover:text-blue-700" onClick={closeMenu}>
-              Projects
-            </a>
-            <a href="#contact" className="transition hover:text-blue-700" onClick={closeMenu}>
-              Contact
-            </a>
-          </nav>
-        ) : null}
+
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-700 md:flex">
+          <a href="#about" className="transition hover:text-teal-700">
+            About
+          </a>
+          <a href="#projects" className="transition hover:text-teal-700">
+            Projects
+          </a>
+          <a href="#contact" className="transition hover:text-teal-700">
+            Contact
+          </a>
+        </nav>
       </div>
 
-      <nav className="hidden gap-6 text-sm font-semibold text-slate-700 md:flex">
-        <a href="#about" className="transition hover:text-blue-700">
-          About
-        </a>
-        <a href="#projects" className="transition hover:text-blue-700">
-          Projects
-        </a>
-        <a href="#contact" className="transition hover:text-blue-700">
-          Contact
-        </a>
-      </nav>
+      <a
+        href="#contact"
+        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-4 py-3 text-sm font-bold text-white transition hover:bg-teal-800"
+      >
+        <FaCalendarCheck /> Request Appointment
+      </a>
+
+      {isMenuOpen ? (
+        <nav id="mobile-nav" className="mt-3 flex flex-col rounded-xl border border-slate-200 bg-white p-3 text-sm font-semibold text-slate-700 md:hidden">
+          <a href="#about" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-teal-700" onClick={closeMenu}>
+            About
+          </a>
+          <a href="#projects" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-teal-700" onClick={closeMenu}>
+            Projects
+          </a>
+          <a href="#contact" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-teal-700" onClick={closeMenu}>
+            Contact
+          </a>
+        </nav>
+      ) : null}
     </header>
   );
 }
